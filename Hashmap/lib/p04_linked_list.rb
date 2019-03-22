@@ -1,3 +1,5 @@
+require 'byebug'
+
 class Node
   attr_reader :key
   attr_accessor :val, :next, :prev
@@ -13,14 +15,22 @@ class Node
     "#{@key}: #{@val}"
   end
 
+
   def remove
     # optional but useful, connects previous link to next link
     # and removes self from list.
+    
   end
 end
 
 class LinkedList
+  include Enumerable
+
   def initialize
+    @head = Node.new
+    @tail = Node.new
+    @head.next = @tail 
+    @tail.prev = @head 
   end
 
   def [](i)
@@ -35,6 +45,9 @@ class LinkedList
   end
 
   def empty?
+    debugger
+    @head.next == @tail && @tail.prev == @head 
+    
   end
 
   def get(key)
@@ -60,3 +73,6 @@ class LinkedList
   #   inject([]) { |acc, link| acc << "[#{link.key}, #{link.val}]" }.join(", ")
   # end
 end
+
+list = LinkedList.new
+list.empty?
